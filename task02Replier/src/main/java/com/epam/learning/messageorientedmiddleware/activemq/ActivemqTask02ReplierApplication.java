@@ -4,10 +4,10 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class ActivemqApplication {
+public class ActivemqTask02ReplierApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(ActivemqApplication.class, args);
+		SpringApplication.run(ActivemqTask02ReplierApplication.class, args);
 	}
 
 }
