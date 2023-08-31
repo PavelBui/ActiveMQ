@@ -27,6 +27,7 @@ public class JmsConfig {
     public CachingConnectionFactory connectionFactory() {
         CachingConnectionFactory cachingConnectionFactory = new CachingConnectionFactory(new ActiveMQConnectionFactory(user, password, brokerUrl));
         cachingConnectionFactory.setReconnectOnException(true);
+        cachingConnectionFactory.setClientId("nondurable");
         return cachingConnectionFactory;
     }
 

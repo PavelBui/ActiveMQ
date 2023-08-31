@@ -6,7 +6,9 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.jms.annotation.EnableJms;
 import org.springframework.jms.config.DefaultJmsListenerContainerFactory;
+import org.springframework.jms.config.JmsListenerContainerFactory;
 import org.springframework.jms.connection.CachingConnectionFactory;
+import org.springframework.jms.connection.SingleConnectionFactory;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 @EnableTransactionManagement
@@ -24,16 +26,18 @@ public class JmsConfig {
     private String password;
 
     @Bean
-    public CachingConnectionFactory connectionFactory() {
-        CachingConnectionFactory cachingConnectionFactory = new CachingConnectionFactory(new ActiveMQConnectionFactory(user, password, brokerUrl));
-        cachingConnectionFactory.setReconnectOnException(true);
-        cachingConnectionFactory.setClientId("durable");
-        return cachingConnectionFactory;
+    public SingleConnectionFactory connectionFactory() {
+        SingleConnectionFactory singleConnectionFactory = new CachingConnectionFactory(new ActiveMQConnectionFactory(user, password, brokerUrl));
+        singleConnectionFactory.setReconnectOnException(true);
+        singleConnectionFactory.setClientId("durable");
+        return singleConnectionFactory;
     }
 
-    public DefaultJmsListenerContainerFactory defaultJmsListenerContainerFactory() {
+    @Bean
+    public JmsListenerContainerFactory jmsListenerContainerFactory() {
         DefaultJmsListenerContainerFactory defaultContainerFactory = new DefaultJmsListenerContainerFactory();
         defaultContainerFactory.setConnectionFactory(connectionFactory());
+        defaultContainerFactory.setSubscriptionDurable(true);
         defaultContainerFactory.setConcurrency("1-1");
         return defaultContainerFactory;
     }

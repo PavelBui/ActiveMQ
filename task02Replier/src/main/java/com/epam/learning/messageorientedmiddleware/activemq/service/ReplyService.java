@@ -7,8 +7,8 @@ import org.springframework.stereotype.Service;
 @Service
 public class ReplyService {
 
-    @JmsListener(destination = "${activemq.task01.request-channel}")
-    @SendTo("${activemq.task01.reply-channel}")
+    @JmsListener(destination = "${activemq.task02.request-channel}")
+    @SendTo("${activemq.task02.reply-channel}")
     public String receiveMessage(String message) {
         System.out.println("Replier received next message: " + message);
         return message + " answer";

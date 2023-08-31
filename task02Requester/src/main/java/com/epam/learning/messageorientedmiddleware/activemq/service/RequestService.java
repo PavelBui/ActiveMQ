@@ -19,11 +19,11 @@ public class RequestService {
     @Autowired
     private JmsTemplate jmsTemplate;
 
-    @Value("${activemq.task01.request-channel}")
+    @Value("${activemq.task02.request-channel}")
     private String requestChannel;
-    @Value("${activemq.task01.queue-asking-timeout-ms}")
+    @Value("${activemq.task02.queue-asking-timeout-ms}")
     private int queueAskingTimeoutMs;
-    @Value("${activemq.task01.queue-asking-limit}")
+    @Value("${activemq.task02.queue-asking-limit}")
     private int queueAskingLimit;
     private static Queue<String> messageQueue = new LinkedList<>();
     private static int queueAskingIterator = 1;
@@ -45,7 +45,7 @@ public class RequestService {
         }
     }
 
-    @JmsListener(destination = "${activemq.task01.reply-channel}")
+    @JmsListener(destination = "${activemq.task02.reply-channel}")
     public void receiveMessage(String message) throws InterruptedException {
         System.out.println("Requester received next message: " + message);
         sendNextMessage();
