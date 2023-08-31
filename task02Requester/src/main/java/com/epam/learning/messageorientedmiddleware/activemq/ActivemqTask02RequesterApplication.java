@@ -30,7 +30,7 @@ public class ActivemqTask02RequesterApplication {
 						"Request 8",
 						"Request 9",
 						"Request 10"));
-		requestService.sendNextMessage(RequestService.REQUEST_CHANEL);
+		requestService.sendNextMessage();
 		requestService.addMessages(
 				List.of("Request 11",
 						"Request 12",

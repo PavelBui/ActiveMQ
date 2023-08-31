@@ -1,17 +1,15 @@
-package com.epam.learning.messageorientedmiddleware.activemq;
+package com.epam.learning.messageorientedmiddleware.activemq.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jms.core.JmsTemplate;
-import org.springframework.stereotype.Component;
-import org.springframework.transaction.annotation.Transactional;
+import org.springframework.stereotype.Service;
 
-@Component
-public class Sender {
+@Service
+public class PublishService {
 
     @Autowired
     private JmsTemplate jmsTemplate;
 
-    @Transactional
     public void sendMessage(String destination, String message) {
         jmsTemplate.convertAndSend(destination, message);
     }

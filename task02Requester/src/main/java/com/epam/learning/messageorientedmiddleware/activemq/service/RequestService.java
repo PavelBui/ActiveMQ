@@ -1,6 +1,7 @@
 package com.epam.learning.messageorientedmiddleware.activemq.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.jms.annotation.JmsListener;
 import org.springframework.jms.core.JmsTemplate;
 import org.springframework.stereotype.Service;
@@ -18,34 +19,36 @@ public class RequestService {
     @Autowired
     private JmsTemplate jmsTemplate;
 
-    public static final String REQUEST_CHANEL = "requestChanel";
-    private static final String REPLY_CHANEL = "replyChanel";
-    private static final int QUEUE_ASKING_TIMEOUT_MS = 5000;
-    private static final int QUEUE_ASKING_LIMIT = 10;
+    @Value("${activemq.task01.request-channel}")
+    private String requestChannel;
+    @Value("${activemq.task01.queue-asking-timeout-ms}")
+    private int queueAskingTimeoutMs;
+    @Value("${activemq.task01.queue-asking-limit}")
+    private int queueAskingLimit;
     private static Queue<String> messageQueue = new LinkedList<>();
     private static int queueAskingIterator = 1;
 
     @Transactional
-    public void sendNextMessage(String destination) throws InterruptedException {
+    public void sendNextMessage() throws InterruptedException {
         if (!messageQueue.isEmpty()) {
-            jmsTemplate.convertAndSend(destination, messageQueue.poll());
+            jmsTemplate.convertAndSend(requestChannel, messageQueue.poll());
             queueAskingIterator = 1;
         } else {
-            if (queueAskingIterator > QUEUE_ASKING_LIMIT) {
-                System.out.println("Queue of messages is empty. I'm have asked a lot of the times. Needs manual event");
+            if (queueAskingIterator > queueAskingLimit) {
+                System.out.println("Queue of messages is empty. I have already asked many times. Manual event required");
             } else {
-                System.out.println("Queue of messages is empty. This is my " + queueAskingIterator + "'th ask. I'm going to sleep " + QUEUE_ASKING_TIMEOUT_MS + "ms");
-                sleep(QUEUE_ASKING_TIMEOUT_MS);
+                System.out.println("Queue of messages is empty. This is my " + queueAskingIterator + "'th ask. I'm going to sleep " + queueAskingTimeoutMs + "ms");
+                sleep(queueAskingTimeoutMs);
                 queueAskingIterator++;
-                sendNextMessage(REQUEST_CHANEL);
+                sendNextMessage();
             }
         }
     }
 
-    @JmsListener(destination = REPLY_CHANEL)
+    @JmsListener(destination = "${activemq.task01.reply-channel}")
     public void receiveMessage(String message) throws InterruptedException {
         System.out.println("Requester received next message: " + message);
-        sendNextMessage(REQUEST_CHANEL);
+        sendNextMessage();
     }
 
     public void addMessage(String message) {

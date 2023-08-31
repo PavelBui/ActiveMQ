@@ -8,9 +8,9 @@
 		<version>1.0.0-SNAPSHOT</version>
 	</parent>
 	<groupId>com.epam.learning.messageorientedmiddleware</groupId>
-	<artifactId>activemqTask01Publisher</artifactId>
+	<artifactId>task01Publisher</artifactId>
 	<version>1.0.0-SNAPSHOT</version>
-	<name>activemqTask01Publisher</name>
+	<name>task01Publisher</name>
 	<description>Active MQ Task 01 Publisher</description>
 
 	<build>

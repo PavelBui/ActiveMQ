@@ -1,5 +1,6 @@
 package com.epam.learning.messageorientedmiddleware.activemq;
 
+import com.epam.learning.messageorientedmiddleware.activemq.service.PublishService;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.ConfigurableApplicationContext;
@@ -11,12 +12,9 @@ public class ActivemqTask01PublisherApplication {
 		SpringApplication.run(ActivemqTask01PublisherApplication.class, args);
 		ConfigurableApplicationContext configurableApplicationContext = SpringApplication.run(ActivemqTask01PublisherApplication.class, args);
 
-//		JmsTemplate jmsTemplate = configurableApplicationContext.getBean(JmsTemplate.class);
-//		jmsTemplate.convertAndSend("test123", "test Hello!");
-
-		Sender sender = configurableApplicationContext.getBean(Sender.class);
-		for (int i = 0; i < 10; i++) {
-			sender.sendMessage("test123", "test Hello " + i + "!");
+		PublishService publishService = configurableApplicationContext.getBean(PublishService.class);
+		for (int i = 1; i < 11; i++) {
+			publishService.sendMessage("pub-sub-topic", "test Hello " + i + "!");
 		}
 
 	}

@@ -8,10 +8,10 @@
 		<version>1.0.0-SNAPSHOT</version>
 	</parent>
 	<groupId>com.epam.learning.messageorientedmiddleware</groupId>
-	<artifactId>task02Requestor</artifactId>
+	<artifactId>task01DurableSubscriber</artifactId>
 	<version>1.0.0-SNAPSHOT</version>
-	<name>task02Requester</name>
-	<description>Active MQ Task 02 Requester</description>
+	<name>task01FirstSubscriber</name>
+	<description>Active MQ Task 01 First Subscriber</description>
 
 	<build>
 		<plugins>
