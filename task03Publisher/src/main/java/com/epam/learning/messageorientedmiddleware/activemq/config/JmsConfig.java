@@ -5,6 +5,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.jms.annotation.EnableJms;
+import org.springframework.jms.connection.CachingConnectionFactory;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 @EnableTransactionManagement
@@ -22,8 +23,10 @@ public class JmsConfig {
     private String password;
 
     @Bean
-    public ActiveMQConnectionFactory connectionFactory() {
-        return new ActiveMQConnectionFactory(user, password, brokerUrl);
+    public CachingConnectionFactory connectionFactory() {
+        CachingConnectionFactory cachingConnectionFactory = new CachingConnectionFactory(new ActiveMQConnectionFactory(user, password, brokerUrl));
+        cachingConnectionFactory.setReconnectOnException(true);
+        return cachingConnectionFactory;
     }
 
 }

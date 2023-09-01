@@ -5,7 +5,6 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.jms.annotation.EnableJms;
-import org.springframework.jms.config.DefaultJmsListenerContainerFactory;
 import org.springframework.jms.connection.CachingConnectionFactory;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 
@@ -29,13 +28,6 @@ public class JmsConfig {
         cachingConnectionFactory.setReconnectOnException(true);
         cachingConnectionFactory.setClientId("nondurable");
         return cachingConnectionFactory;
-    }
-
-    public DefaultJmsListenerContainerFactory defaultJmsListenerContainerFactory() {
-        DefaultJmsListenerContainerFactory defaultContainerFactory = new DefaultJmsListenerContainerFactory();
-        defaultContainerFactory.setConnectionFactory(connectionFactory());
-        defaultContainerFactory.setConcurrency("1-1");
-        return defaultContainerFactory;
     }
 
 }

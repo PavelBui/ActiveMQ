@@ -9,6 +9,9 @@
 		<module>task01Publisher</module>
 		<module>task02Replier</module>
 		<module>task02Requester</module>
+		<module>task03FirstConsumer</module>
+		<module>task03SecondConsumer</module>
+		<module>task03Publisher</module>
 	</modules>
 	<parent>
 		<groupId>org.springframework.boot</groupId>

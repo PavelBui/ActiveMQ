@@ -5,7 +5,6 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.jms.annotation.JmsListener;
 import org.springframework.jms.core.JmsTemplate;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 import java.util.LinkedList;
 import java.util.List;
@@ -28,7 +27,6 @@ public class RequestService {
     private static Queue<String> messageQueue = new LinkedList<>();
     private static int queueAskingIterator = 1;
 
-    @Transactional
     public void sendNextMessage() throws InterruptedException {
         if (!messageQueue.isEmpty()) {
             jmsTemplate.convertAndSend(requestChannel, messageQueue.poll());

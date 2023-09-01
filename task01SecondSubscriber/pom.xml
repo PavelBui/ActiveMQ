@@ -8,7 +8,7 @@
 		<version>1.0.0-SNAPSHOT</version>
 	</parent>
 	<groupId>com.epam.learning.messageorientedmiddleware</groupId>
-	<artifactId>task01NonDurableSubscriber</artifactId>
+	<artifactId>task01SecondSubscriber</artifactId>
 	<version>1.0.0-SNAPSHOT</version>
 	<name>task01SecondSubscriber</name>
 	<description>Active MQ Task 01 Second Subscriber</description>
